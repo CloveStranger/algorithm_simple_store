@@ -6,8 +6,6 @@
 
 // 请解码返回原数组 arr 。可以证明答案存在并且是唯一的。
 
-
-
 // 示例 1：
 
 // 输入：encoded = [1,2,3], first = 1
@@ -17,7 +15,6 @@
 
 // 输入：encoded = [6,2,7,3], first = 4
 // 输出：[4,2,0,7,4]
-
 
 // 提示：
 
@@ -31,34 +28,44 @@
  * @param {number} first
  * @return {number[]}
  */
-// var decode = function (encoded, first) {
-
-//     const output = [first];
-
-//     for (let i = 0; i < encoded.length; i++) {
-//         const item = encoded[i];
-//         console.log(item);
-
-
-//     }
-
-//     return output;
-
-// };
 var decode = function (encoded, first) {
+  const output = [first];
 
-    const n = encoded.length + 1;
-    const arr = new Array(n).fill(0);
-    arr[0] = first;
-    for (let i = 1; i < n; i++) {
-        arr[i] = arr[i - 1] ^ encoded[i - 1];
-        console.log(arr[i]);
-    }
-    return arr;
+  for (let i = 1; i < encoded.length + 1; i++) {
+    const item = output[i - 1] ^ encoded[i - 1];
+    output.push(item);
+  }
 
+  console.log(output);
+
+  return output;
 };
+// var decode = function (encoded, first) {
+//   const n = encoded.length + 1;
+//   const arr = new Array(n).fill(0);
+//   arr[0] = first;
+//   for (let i = 1; i < n; i++) {
+//     arr[i] = arr[i - 1] ^ encoded[i - 1];
+//     console.log(arr[i]);
+//   }
+//   return arr;
+// };
 
 const encoded = [1, 2, 3];
 const first = 1;
 
-decode(encoded, first); 
+decode(encoded, first);
+
+/*
+主要考察异或运算知识点
+1、归零律 a^a=0
+2、恒等律 a^0=a
+3、交换律 a^b = b^a
+4、结合律 a^b^c =  (a^b)^c = a^(b^c)
+
+题解：
+    encoded[i-1] = output[i-1]^ouput[i]
+    encoded[i-1]^ouput[i-1] =output[i-1]^ouput[i]^output[i-1]
+    output[i-1]^encoded[i-1] = output[i-1]^output[i-1]^output[i]
+    output[i-1]^encoded[i-1] = output[i]
+*/
