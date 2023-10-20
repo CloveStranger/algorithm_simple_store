@@ -31,40 +31,70 @@
  * @param {string[]} words
  * @return {number}
  */
+// var countConsistentStrings = function (allowed, words) {
+//   let output = 0;
+
+//   const charMap = new Set();
+
+//   for (let i = 0; i < allowed.length; i++) {
+//     const item = allowed[i];
+//     charMap.add(item);
+//   }
+
+//   for (let i = 0; i < words.length; i++) {
+//     const item = words[i];
+//     let addSignal = true;
+//     for (let j = 0; j < item.length; j++) {
+//       if (addSignal !== false) {
+//         const charItem = item[j];
+//         console.log(charItem);
+//         if (!charMap.has(charItem)) {
+//           addSignal = false;
+//         }
+//       }
+//     }
+//     if (addSignal) {
+//       output++;
+//     }
+//   }
+
+//   console.log(charMap);
+//   console.log(output);
+
+//   return output;
+// };
+
 var countConsistentStrings = function (allowed, words) {
-  let output = 0;
-
-  const charMap = new Set();
-
+  let mask = 0;
   for (let i = 0; i < allowed.length; i++) {
-    const item = allowed[i];
-    charMap.add(item);
+    const c = allowed[i];
+    mask |= 1 << (c.charCodeAt() - "a".charCodeAt());
+    console.log((1 << (c.charCodeAt() - "a".charCodeAt())).toString());
   }
-
-  for (let i = 0; i < words.length; i++) {
-    const item = words[i];
-    let addSignal = true;
-    for (let j = 0; j < item.length; j++) {
-      if (addSignal !== false) {
-        const charItem = item[j];
-        console.log(charItem);
-        if (!charMap.has(charItem)) {
-          addSignal = false;
-        }
-      }
+  let res = 0;
+  for (const word of words) {
+    let mask1 = 0;
+    for (let i = 0; i < word.length; i++) {
+      const c = word[i];
+      mask1 |= 1 << (c.charCodeAt() - "a".charCodeAt());
     }
-    if (addSignal) {
-      output++;
+    if ((mask1 | mask) === mask) {
+      res++;
     }
   }
-
-  console.log(charMap);
-  console.log(output);
-
-  return output;
+  return res;
 };
 
 const allowed = "cad";
 const words = ["cc", "acd", "b", "ba", "bac", "bad", "ac", "d"];
 
 countConsistentStrings(allowed, words);
+
+/*
+知识点
+1、因为目标小于32个单位所以想到位运算
+2、charCodeAt函数获取对应字符UTF-16编码 位于0-65535
+3、左移运算 target << 位移数量（10进制）
+4、异或运算 a|=b => a = a|b (有1为1，全0为0)
+5、将对应的32位二进制码进行异或运算，若是子集应当不变
+*/
