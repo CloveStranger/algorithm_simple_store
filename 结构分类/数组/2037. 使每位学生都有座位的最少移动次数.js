@@ -49,14 +49,26 @@
  * @return {number}
  */
 var minMovesToSeat = function (seats, students) {
-  let output = 0;
-
-  for (let i = 0; i < students.length; i++) {}
-
-  return output;
+  seats.sort((a, b) => a - b);
+  students.sort((a, b) => a - b);
+  let res = 0;
+  for (let i = 0; i < seats.length; i++) {
+    res += Math.abs(seats[i] - students[i]);
+  }
+  return res;
 };
 
 seats = [3, 1, 5];
 students = [2, 7, 4];
 
 minMovesToSeat(seats, students);
+
+/*
+一个房间共有 nnn 个学生和 nnn 个座位，每个学生对应一个座位。将学生和座位的位置分别排序后，第 iii 个学生对应第 iii 个座位，即第 iii 个学生需要挪动的距离是 ∣studentsi−seatsi∣|\textit{students}_i - \textit{seats}_i|∣students 
+i
+​
+ −seats 
+i
+ ∣。由于在任何情况下，交换两个学生的对应座位并不会使得答案更优，所以对所有学生需要挪动的距离求和就是答案。
+
+*/
