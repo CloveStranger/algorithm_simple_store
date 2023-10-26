@@ -39,26 +39,25 @@
 var deleteGreatestValue = function (grid) {
   let output = 0;
 
-  if (grid.length === 1) {
-    output += Math.max(...grid[0]);
-    return output;
-  }
+  // if (grid.length === 1) {
+  //   output += Math.max(...grid[0]);
+  //   return output;
+  // }
 
   let arrList = grid;
 
-  while (arrList[0].length > 1) {
+  while (arrList[arrList.length - 1].length) {
     let curMax = 0;
-    console.log(arrList);
     for (let i = 0; i < arrList.length; i++) {
-      console.log(arrList[i]);
       let rowMax = 0;
       let maxIndex = 0;
-      for (let j = 0; i < arrList[i].length; j++) {
-        rowMax = Math.max(rowMax, arrList[i][j]);
-        maxIndex = j;
+      for (let j = 0; j < arrList[i].length; j++) {
+        if (rowMax < arrList[i][j]) {
+          rowMax = arrList[i][j];
+          maxIndex = j;
+        }
       }
       arrList[i].splice(maxIndex, 1);
-      console.log(arrList);
       curMax = Math.max(curMax, rowMax);
     }
     output += curMax;
@@ -66,9 +65,16 @@ var deleteGreatestValue = function (grid) {
   return output;
 };
 
+// grid = [
+//   [1, 2, 4],
+//   [3, 3, 1],
+// ];
 grid = [
-  [1, 2, 4],
-  [3, 3, 1],
+  [
+    50, 72, 65, 6, 81, 92, 18, 51, 10, 50, 32, 64, 32, 14, 54, 16, 45, 64, 27,
+    45, 15, 94, 40, 51, 7, 4, 17, 81, 69, 96, 79, 88, 11, 60, 91, 21, 82, 56,
+    30, 38, 19,
+  ],
 ];
 
 console.log(deleteGreatestValue(grid));
