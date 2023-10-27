@@ -66,13 +66,8 @@ var subsetXORSum = function (nums) {
           for (let n = 0; n < i - 1; n++) {
             if (m + n < nums.length) {
               countArr.push(nums[m + n]);
-            } else {
-              if (nums[m + n - nums.length] !== nums[j]) {
-                countArr.push(nums[m + n - nums.length]);
-              }
             }
           }
-          console.log(countArr);
           output += countArr.reduce((pre, cur) => pre ^ cur);
         }
       }
