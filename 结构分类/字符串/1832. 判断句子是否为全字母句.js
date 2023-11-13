@@ -23,16 +23,14 @@
  * @return {boolean}
  */
 var checkIfPangram = function (sentence) {
-  let output = true;
+  const newSet = new Set();
   for (let i = 0; i < sentence.length; i++) {
-    console.log(sentence.charCodeAt(i));
-    if (sentence.charCodeAt(i) < 97 || sentence.charCodeAt(i) > 122) {
-      output = false;
-      break;
+    const item = sentence[i];
+    if (!newSet.has(item)) {
+      newSet.add(item);
     }
   }
-
-  return output;
+  return newSet.size === 26;
 };
 
 sentence = "leetcode";
