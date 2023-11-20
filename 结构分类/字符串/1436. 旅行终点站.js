@@ -33,14 +33,45 @@
  * @param {string[][]} paths
  * @return {string}
  */
-var destCity = function (paths) {
-  let output = new Map();
+// var destCity = function (paths) {
+//   let output = paths[0][1];
 
-  for (let i = 0; i < paths.length; i++) {
-    const item = paths[i];
-    if (output.has(item[1])) {
+//   for (let i = 0; i < paths.length; i++) {
+//     let setSignal = true;
+//     for (let j = 0; j < paths.length; j++) {
+//       if (paths[i][1] === paths[j][0]) {
+//         setSignal = false;
+//         break;
+//       }
+//     }
+//     if (setSignal) {
+//       output = paths[i][1];
+//       break;
+//     }
+//   }
+
+//   return output;
+// };
+
+var destCity = function (paths) {
+  const citiesA = new Set();
+  for (const path of paths) {
+    citiesA.add(path[0]);
+  }
+  for (const path of paths) {
+    if (!citiesA.has(path[1])) {
+      return path[1];
     }
   }
-
-  return output[output.length - 1];
+  return "";
 };
+
+paths = [
+  ["jMgaf WaWA", "iinynVdmBz"],
+  [" QCrEFBcAw", "wRPRHznLWS"],
+  ["iinynVdmBz", "OoLjlLFzjz"],
+  ["OoLjlLFzjz", " QCrEFBcAw"],
+  ["IhxjNbDeXk", "jMgaf WaWA"],
+  ["jmuAYy vgz", "IhxjNbDeXk"],
+];
+console.log(destCity(paths));
