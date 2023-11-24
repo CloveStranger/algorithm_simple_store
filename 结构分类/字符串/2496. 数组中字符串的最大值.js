@@ -35,8 +35,12 @@ var maximumValue = function (strs) {
   let output = 0;
   for (let i = 0; i < strs.length; i++) {
     const item = strs[i];
-    console.log(item.valueOf());
-    // output = Math.max(output, item.valueOf());
+    const itemAsNum = item * 1;
+    if (!Number.isNaN(itemAsNum)) {
+      output = Math.max(output, itemAsNum);
+    } else {
+      output = Math.max(output, item.length);
+    }
   }
   return output;
 };

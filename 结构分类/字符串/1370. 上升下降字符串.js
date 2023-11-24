@@ -47,9 +47,34 @@
  * @return {string}
  */
 var sortString = function (s) {
-  const charCountArr = [];
+  const charArr = s.split("").sort();
+  const output = [];
+  let isMin = true;
 
-  for (let i = 0; i < s.length; i++) {
-    const item = s[i];
+  while (charArr.length) {
+    let curChar = null;
+    if (isMin) {
+      for (let i = 0; i < charArr.length; i++) {
+        if (charArr[i] !== curChar) {
+          curChar = charArr[i];
+          output.push(charArr[i]);
+          charArr.splice(i, 1);
+          i--;
+        }
+      }
+    } else {
+      for (let i = charArr.length - 1; i >= 0; i--) {
+        if (charArr[i] !== curChar) {
+          curChar = charArr[i];
+          output.push(charArr[i]);
+          charArr.splice(i, 1);
+        }
+      }
+    }
+    isMin = !isMin;
   }
+  return output.join("");
 };
+s = "aaaabbbbcccc";
+console.log(sortString(s));
+// "abccbaabccba"
