@@ -32,19 +32,20 @@
  * @return {boolean}
  */
 var digitCount = function (num) {
-  const map = {};
+  const map = new Map();
+  let output = true;
   for (let i = 0; i < num.length; i++) {
-    map[num[i]] = (map[[num[i]]] || 0) + 1;
+    map.set(num[i], (map.get(num[i]) || 0) + 1);
   }
+  console.log(map);
   for (let i = 0; i < num.length; i++) {
-    if (num[i] === "0" && map[num[i]] !== 0) {
-      return false;
-    }
-    if (num[i] !== "0" && map[i] !== parseInt(num[i])) {
-      return false;
+    if (map.get(num[i]) !== num[i] && map.get(num[i]) !== void 0) {
+      output = false;
+      break;
     }
   }
-  return true;
+  return output;
 };
 num = "1210";
+// num = "030";
 console.log(digitCount(num));
