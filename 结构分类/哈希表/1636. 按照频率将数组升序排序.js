@@ -30,17 +30,39 @@ var frequencySort = function (nums) {
   for (let i = 0; i < nums.length; i++) {
     output[nums[i]] = (output[nums[i]] || 0) + 1;
   }
-  console.log(output);
+  const numArrSort = Object.entries(output).sort(
+    (a, b) => a[1] - b[1] || a[0] - b[0]
+  );
+  console.log(numArrSort);
+
   const outArr = [];
-  let preNum = 0;
-  for (let key in output) {
-    preNum = output[key];
-    for (let i = 0; i < output[key]; i++) {
-      outArr.push(Number(key));
+
+  const tempArr = [];
+
+  for (let i = 0; i < numArrSort.length; i++) {
+    for (let j = 0; j < numArrSort[i][1]; j++) {
+      if (i > 0) {
+        console.log(numArrSort[i][1], numArrSort[i - 1][1]);
+        if (numArrSort[i][1] === numArrSort[i - 1][1]) {
+          tempArr.unshift(numArrSort[i][0]);
+        } else {
+          outArr.push(...tempArr);
+          tempArr.length = 0;
+          tempArr.push(numArrSort[i][0]);
+        }
+      } else {
+        tempArr.push(numArrSort[i][0]);
+      }
     }
+  }
+  if (tempArr.length) {
+    outArr.push(...tempArr);
   }
   return outArr;
 };
 
 nums = [2, 3, 1, 3, 2];
+// nums = [1, 1, 2, 2, 2, 3];
+nums = [-1, 1, -6, 4, 5, -6, 1, 4, 1];
+// nums = [8, -8, 2, -8, -5, -3];
 console.log(frequencySort(nums));
