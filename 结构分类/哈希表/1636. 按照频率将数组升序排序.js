@@ -26,40 +26,57 @@
  * @return {number[]}
  */
 var frequencySort = function (nums) {
-  const output = {};
-  for (let i = 0; i < nums.length; i++) {
-    output[nums[i]] = (output[nums[i]] || 0) + 1;
+  const cnt = new Map();
+  for (const num of nums) {
+    cnt.set(num, (cnt.get(num) || 0) + 1);
   }
-  const numArrSort = Object.entries(output).sort(
-    (a, b) => a[1] - b[1] || a[0] - b[0]
-  );
-  console.log(numArrSort);
-
-  const outArr = [];
-
-  const tempArr = [];
-
-  for (let i = 0; i < numArrSort.length; i++) {
-    for (let j = 0; j < numArrSort[i][1]; j++) {
-      if (i > 0) {
-        console.log(numArrSort[i][1], numArrSort[i - 1][1]);
-        if (numArrSort[i][1] === numArrSort[i - 1][1]) {
-          tempArr.unshift(numArrSort[i][0]);
-        } else {
-          outArr.push(...tempArr);
-          tempArr.length = 0;
-          tempArr.push(numArrSort[i][0]);
-        }
-      } else {
-        tempArr.push(numArrSort[i][0]);
-      }
-    }
+  const list = [...nums];
+  list.sort((a, b) => {
+    const cnt1 = cnt.get(a),
+      cnt2 = cnt.get(b);
+    return cnt1 !== cnt2 ? cnt1 - cnt2 : b - a;
+  });
+  const length = nums.length;
+  for (let i = 0; i < length; i++) {
+    nums[i] = list[i];
   }
-  if (tempArr.length) {
-    outArr.push(...tempArr);
-  }
-  return outArr;
+  return nums;
 };
+// var frequencySort = function (nums) {
+//   const output = {};
+//   for (let i = 0; i < nums.length; i++) {
+//     output[nums[i]] = (output[nums[i]] || 0) + 1;
+//   }
+//   const numArrSort = Object.entries(output).sort(
+//     (a, b) => a[1] - b[1] || a[0] - b[0]
+//   );
+//   console.log(numArrSort);
+
+//   const outArr = [];
+
+//   const tempArr = [];
+
+//   for (let i = 0; i < numArrSort.length; i++) {
+//     for (let j = 0; j < numArrSort[i][1]; j++) {
+//       if (i > 0) {
+//         console.log(numArrSort[i][1], numArrSort[i - 1][1]);
+//         if (numArrSort[i][1] === numArrSort[i - 1][1]) {
+//           tempArr.unshift(numArrSort[i][0]);
+//         } else {
+//           outArr.push(...tempArr);
+//           tempArr.length = 0;
+//           tempArr.push(numArrSort[i][0]);
+//         }
+//       } else {
+//         tempArr.push(numArrSort[i][0]);
+//       }
+//     }
+//   }
+//   if (tempArr.length) {
+//     outArr.push(...tempArr);
+//   }
+//   return outArr;
+// };
 
 nums = [2, 3, 1, 3, 2];
 // nums = [1, 1, 2, 2, 2, 3];
