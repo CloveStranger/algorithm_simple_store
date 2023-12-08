@@ -32,5 +32,22 @@
  * @return {number[]}
  */
 var twoOutOfThree = function (nums1, nums2, nums3) {
-  const map = new Map();
+  const group1 = nums1.filter(
+    (item) => nums2.includes(item) || nums3.includes(item)
+  );
+
+  const group2 = nums2.filter(
+    (item) => nums1.includes(item) || nums3.includes(item)
+  );
+
+  const group3 = nums3.filter(
+    (item) => nums1.includes(item) || nums2.includes(item)
+  );
+
+  return [...new Set([...group1, ...group2, ...group3])];
 };
+nums1 = [3, 1];
+nums2 = [2, 3];
+nums3 = [1, 2];
+
+console.log(twoOutOfThree(nums1, nums2, nums3));
