@@ -38,11 +38,14 @@
 // };
 var maxArea = function (height) {
   let output = 0;
-
-  for (let i = 0; i < height.length; i++) {
-    for (let j = height.length - 1; j > i; j--) {
-      output = Math.max(output, (j - i) * Math.min(height[i], height[j]));
-    }
+  let pre = 0;
+  let next = height.length - 1;
+  while (pre < next) {
+    output = Math.max(
+      output,
+      (next - pre) * Math.min(height[pre], height[next])
+    );
+    height[pre] < height[next] ? pre++ : next--;
   }
 
   return output;
