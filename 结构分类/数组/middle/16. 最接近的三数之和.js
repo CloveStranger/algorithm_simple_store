@@ -40,22 +40,69 @@
 //   return curCount;
 // };
 
+// var threeSumClosest = function (nums, target) {
+//   if (nums.length === 3) {
+//     return nums.reduce((a, b) => a + b);
+//   }
+//   nums.sort((a, b) => a - b);
+//   let curCount = nums.slice(0, 3).reduce((a, b) => a + b);
+//   for (let a = 0; a < nums.length; a++) {
+//     let b = a + 1;
+//     let c = nums.length - 1;
+//     while (b < c) {
+//       count = nums[a] + nums[b] + nums[c];
+//       curCount =
+//         Math.abs(count - target) < Math.abs(curCount - target)
+//           ? count
+//           : curCount;
+//       if (count === target) {
+//         return count;
+//       }
+//       if (count < target) {
+//         b++;
+//       } else {
+//         c--;
+//       }
+//     }
+//   }
+
+//   return curCount;
+// };
 var threeSumClosest = function (nums, target) {
   if (nums.length === 3) {
     return nums.reduce((a, b) => a + b);
   }
   nums.sort((a, b) => a - b);
   let curCount = nums.slice(0, 3).reduce((a, b) => a + b);
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = i + 1; j < nums.length; j++) {
-      for (let k = nums.length - 1; k > j; k--) {
-        const count = nums[i] + nums[j] + nums[k];
-        if (Math.abs(count - target) < Math.abs(curCount - target)) {
-          curCount = count;
+  for (let a = 0; a < nums.length; a++) {
+    if (a > 0 && nums[a] === nums[a - 1]) {
+      continue;
+    }
+    let b = a + 1;
+    let c = nums.length - 1;
+    while (b < c) {
+      count = nums[a] + nums[b] + nums[c];
+      if (count === target) {
+        return count;
+      }
+      curCount =
+        Math.abs(count - target) < Math.abs(curCount - target)
+          ? count
+          : curCount;
+      if (count < target) {
+        b++;
+        while (b < c && nums[b] === nums[b - 1]) {
+          b++;
+        }
+      } else {
+        c--;
+        while (b < c && nums[c] === nums[c + 1]) {
+          c--;
         }
       }
     }
   }
+
   return curCount;
 };
 nums = [-1, 2, 1, -4];
