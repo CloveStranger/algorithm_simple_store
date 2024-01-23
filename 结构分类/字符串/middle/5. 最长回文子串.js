@@ -21,25 +21,34 @@
  * @return {string}
  */
 var longestPalindrome = function (s) {
-  let max = "";
+  let n = s.length;
+  let dp = Array.from(Array(n), () => Array(n).fill(false));
+  let start = 0; // 记录回文子串的起始位置
+  let maxLen = 1; // 记录最大回文子串的长度
 
-  for (let i = 0; i < s.length; i++) {
-    const map = new Map();
-    for (let j = i; j < s.length; j++) {
-      if (!map.has(s[j])) {
-        map.set(s[j], 1);
-      } else {
-        map.delete(s[j]);
-      }
-      if (map.size == 0) {
-        max = max.length > j - i ? max : s.substring(i, j);
-      } else if (map.size == 1) {
-        max = max.length > j - i ? max : [...map.keys()][0];
+  // 所有长度为1的子串都是回文子串
+  for (let i = 0; i < n; i++) {
+    dp[i][i] = true;
+  }
+
+  // 遍历所有长度大于1的子串
+  for (let len = 2; len <= n; len++) {
+    for (let i = 0; i <= n - len; i++) {
+      let j = i + len - 1;
+
+      if (s[i] === s[j] && (len === 2 || dp[i + 1][j - 1])) {
+        dp[i][j] = true;
+
+        // 更新最大回文子串的位置和长度
+        if (len > maxLen) {
+          start = i;
+          maxLen = len;
+        }
       }
     }
   }
 
-  return max;
+  return s.substring(start, start + maxLen);
 };
 s = "babad";
 // s = "cbbd";
