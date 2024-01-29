@@ -16,19 +16,48 @@
  * @param {number} n
  * @return {string[]}
  */
+// var generateParenthesis = function (n) {
+//   const res = [];
+
+//   const backtrack = (curArr, leftRemain, rightRemain) => {
+//     if (curArr.length === 2 * n) {
+//       res.push(curArr.join(""));
+//       return;
+//     }
+//     if (leftRemain > 0) {
+//       curArr.push("(");
+//       backtrack(curArr, leftRemain - 1, rightRemain);
+//       curArr.pop();
+//     }
+//     if (rightRemain > 0 && leftRemain < rightRemain) {
+//       curArr.push(")");
+//       backtrack(curArr, leftRemain, rightRemain - 1);
+//       curArr.pop();
+//     }
+//   };
+
+//   backtrack([], n, n);
+
+//   return res;
+// };
 var generateParenthesis = function (n) {
   const res = [];
 
-  const backtrack = (curArr) => {
-    console.log(curArr);
-    if (curArr.length === 2 * n) {
+  const backtrack = (curStr, leftRemain, rightRemain) => {
+    if (curStr.length === 2 * n) {
+      res.push(curStr);
       return;
+    }
+    if (leftRemain > 0) {
+      backtrack(curStr + "(", leftRemain - 1, rightRemain);
+    }
+    if (rightRemain > leftRemain) {
+      backtrack(curStr + ")", leftRemain, rightRemain - 1);
     }
   };
 
-  backtrack(["("]);
+  backtrack("", n, n);
 
   return res;
 };
-
-generateParenthesis(3);
+console.log(generateParenthesis(2));
