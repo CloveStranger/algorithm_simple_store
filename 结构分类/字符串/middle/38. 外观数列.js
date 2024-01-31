@@ -47,10 +47,23 @@
  * @return {string}
  */
 var countAndSay = function (n) {
-  console.log(n);
-  const output = [];
-
-  return output;
+  let ext = ["1"];
+  while (n > 1) {
+    const temp = [];
+    let curCount = 1;
+    for (let i = 0; i < ext.length; i++) {
+      if (ext[i] === ext[i + 1] && i < ext.length - 1) {
+        curCount++;
+        continue;
+      }
+      temp.push(curCount.toString());
+      temp.push(ext[i]);
+      curCount = 1;
+    }
+    ext = temp;
+    n--;
+  }
+  return ext.join("");
 };
 
-console.log(countAndSay(4));
+console.log(countAndSay(6));
