@@ -38,9 +38,32 @@ var minDistance = function (word1, word2) {
   let m = word1.length,
     n = word2.length;
 
-  let minCount = m - n;
+  // 初始化二维数组，用于保存状态
+  let minCount = new Array(m + 1);
+  for (let i = 0; i <= m; i++) {
+    minCount[i] = new Array(n + 1).fill(0);
+  }
+  console.log(minCount);
 
-  return m + n - 2 * minCount[m][n];
+  // 递推，填充二维数组
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (word1[i - 1] === word2[j - 1]) {
+        minCount[i][j] = minCount[i - 1][j - 1];
+      } else {
+        minCount[i][j] =
+          Math.min(
+            minCount[i - 1][j],
+            minCount[i][j - 1],
+            minCount[i - 1][j - 1]
+          ) + 1;
+      }
+    }
+  }
+  console.log(minCount);
+
+  // 返回结果
+  return minCount[m][n];
 };
 word1 = "intention";
 word2 = "execution";
