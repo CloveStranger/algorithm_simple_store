@@ -43,7 +43,6 @@ var minDistance = function (word1, word2) {
   for (let i = 0; i <= m; i++) {
     minCount[i] = new Array(n + 1).fill(0);
   }
-  console.log(minCount);
 
   // 递推，填充二维数组
   for (let i = 1; i <= m; i++) {
@@ -65,6 +64,7 @@ var minDistance = function (word1, word2) {
   // 返回结果
   return minCount[m][n];
 };
+
 word1 = "intention";
 word2 = "execution";
 

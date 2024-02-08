@@ -20,19 +20,49 @@
  * @param {string} s
  * @return {string}
  */
+// var longestPalindrome = function (s) {
+//   let n = s.length;
+//   let dp = Array.from(Array(n), () => Array(n).fill(false));
+//   let start = 0; // 记录回文子串的起始位置
+//   let maxLen = 1; // 记录最大回文子串的长度
+
+//   // 所有长度为1的子串都是回文子串
+//   for (let i = 0; i < n; i++) {
+//     dp[i][i] = true;
+//   }
+//   console.log(dp);
+
+//   // 遍历所有长度大于1的子串
+//   for (let len = 2; len <= n; len++) {
+//     for (let i = 0; i <= n - len; i++) {
+//       let j = i + len - 1;
+//       console.log(s[i], s[j]);
+
+//       if (s[i] === s[j] && (len === 2 || dp[i + 1][j - 1])) {
+//         dp[i][j] = true;
+
+//         // 更新最大回文子串的位置和长度
+//         if (len > maxLen) {
+//           start = i;
+//           maxLen = len;
+//         }
+//       }
+//     }
+//   }
+
+//   return s.substring(start, start + maxLen);
+// };
+
 var longestPalindrome = function (s) {
-  let n = s.length;
-  let dp = Array.from(Array(n), () => Array(n).fill(false));
+  const n = s.length;
+  const dp = Array.from(Array(n), () => Array(n).fill(false));
+
   let start = 0; // 记录回文子串的起始位置
   let maxLen = 1; // 记录最大回文子串的长度
-
-  // 所有长度为1的子串都是回文子串
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < dp.length; i++) {
     dp[i][i] = true;
   }
-  console.log(dp);
 
-  // 遍历所有长度大于1的子串
   for (let len = 2; len <= n; len++) {
     for (let i = 0; i <= n - len; i++) {
       let j = i + len - 1;
@@ -50,8 +80,10 @@ var longestPalindrome = function (s) {
     }
   }
 
+  console.log(dp);
   return s.substring(start, start + maxLen);
 };
+
 s = "babad";
 // s = "cbbd";
 console.log(longestPalindrome(s));
