@@ -41,12 +41,28 @@ var isCousins = function (root, x, y) {
   console.log(root, x, y);
 };
 
-root = [1, 2, 3, 4];
-x = 4;
-y = 3;
+function TreeNode(val, left, right) {
+  this.val = val === undefined ? 0 : val;
+  this.left = left === undefined ? null : left;
+  this.right = right === undefined ? null : right;
+}
 
-root = [1, 2, 3, null, 4, null, 5];
-x = 5;
-y = 4;
+// 示例测试
+let root1 = new TreeNode(1);
+root1.left = new TreeNode(2);
+root1.right = new TreeNode(3);
+root1.left.left = new TreeNode(4);
+console.log(isCousins(root1, 4, 3)); // Output: false
 
-console.log(isCousins(root, x, y));
+// let root2 = new TreeNode(1);
+// root2.left = new TreeNode(2);
+// root2.right = new TreeNode(3);
+// root2.left.right = new TreeNode(4);
+// root2.right.right = new TreeNode(5);
+// console.log(isCousins(root2, 5, 4)); // Output: true
+
+// let root3 = new TreeNode(1);
+// root3.left = new TreeNode(2);
+// root3.right = new TreeNode(3);
+// root3.left.right = new TreeNode(4);
+// console.log(isCousins(root3, 2, 3)); // Output: false
