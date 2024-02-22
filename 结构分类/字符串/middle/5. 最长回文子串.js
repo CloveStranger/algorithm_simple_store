@@ -53,37 +53,72 @@
 //   return s.substring(start, start + maxLen);
 // };
 
+// var longestPalindrome = function (s) {
+//   const n = s.length;
+//   const dp = Array.from(Array(n), () => Array(n).fill(false));
+
+//   let start = 0; // 记录回文子串的起始位置
+//   let maxLen = 1; // 记录最大回文子串的长度
+//   for (let i = 0; i < dp.length; i++) {
+//     dp[i][i] = true;
+//   }
+
+//   for (let len = 2; len <= n; len++) {
+//     for (let i = 0; i <= n - len; i++) {
+//       let j = i + len - 1;
+//       console.log(s[i], s[j]);
+
+//       if (s[i] === s[j] && (len === 2 || dp[i + 1][j - 1])) {
+//         dp[i][j] = true;
+
+//         // 更新最大回文子串的位置和长度
+//         if (len > maxLen) {
+//           start = i;
+//           maxLen = len;
+//         }
+//       }
+//     }
+//   }
+
+//   console.log(dp);
+//   return s.substring(start, start + maxLen);
+// };
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
 var longestPalindrome = function (s) {
   const n = s.length;
   const dp = Array.from(Array(n), () => Array(n).fill(false));
+  let maxLen = 1,
+    start = 0;
 
-  let start = 0; // 记录回文子串的起始位置
-  let maxLen = 1; // 记录最大回文子串的长度
-  for (let i = 0; i < dp.length; i++) {
+  for (let i = 0; i < n; i++) {
     dp[i][i] = true;
   }
 
-  for (let len = 2; len <= n; len++) {
-    for (let i = 0; i <= n - len; i++) {
-      let j = i + len - 1;
-      console.log(s[i], s[j]);
-
-      if (s[i] === s[j] && (len === 2 || dp[i + 1][j - 1])) {
-        dp[i][j] = true;
-
-        // 更新最大回文子串的位置和长度
-        if (len > maxLen) {
-          start = i;
-          maxLen = len;
+  ///遍历长度大于等于2的子串
+  for (let i = 2; i <= n; i++) {
+    ///遍历剩余串长
+    for (let j = 0; j <= n - i; j++) {
+      ///当前索引
+      const k = j + i - 1;
+      if (s[j] === s[k] && (i === 2 || dp[j + 1][k - 1])) {
+        dp[j][k] = true;
+        if (i > maxLen) {
+          maxLen = i;
+          start = j;
         }
       }
     }
   }
 
-  console.log(dp);
   return s.substring(start, start + maxLen);
 };
 
-s = "babad";
+s = "baabd";
 // s = "cbbd";
+s = "a";
+s = "bb";
 console.log(longestPalindrome(s));
