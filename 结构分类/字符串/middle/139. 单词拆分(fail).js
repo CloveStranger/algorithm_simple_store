@@ -42,6 +42,7 @@ var wordBreak = function (s, wordDict) {
       }
     }
   }
+
   return dp[s.length];
 };
 
