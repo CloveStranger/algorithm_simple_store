@@ -39,10 +39,7 @@ var minDistance = function (word1, word2) {
     n = word2.length;
 
   // 初始化二维数组，用于保存状态
-  let minCount = new Array(m + 1);
-  for (let i = 0; i <= m; i++) {
-    minCount[i] = new Array(n + 1).fill(0);
-  }
+  let minCount = new Array(m + 1).fill(new Array(n + 1).fill(0));
 
   // 递推，填充二维数组
   for (let i = 1; i <= m; i++) {
@@ -59,8 +56,6 @@ var minDistance = function (word1, word2) {
       }
     }
   }
-  console.log(minCount);
-
   // 返回结果
   return minCount[m][n];
 };
