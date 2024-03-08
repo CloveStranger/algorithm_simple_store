@@ -41,4 +41,47 @@
  * @param {number} target
  * @return {number}
  */
-var minimumPossibleSum = function (n, target) {};
+
+// nums.length == n.
+// nums 由两两互不相同的正整数组成。
+// 在范围 [0, n-1] 内，不存在 两个 不同 下标 i 和 j ，使得 nums[i] + nums[j] == target 。
+var minimumPossibleSum = function (n, target) {
+  const arr = new Array(n).fill(0).map((_, i) => i + 1); //条件1 && 2
+
+  console.log(arr);
+  for (let i = 0; i < arr.length; i++) {
+    if (i > 0) {
+      if (arr[i] < target) {
+        for (let j = 0; j < target; j++) {
+          if (arr[i] > arr[j] && arr[i] + arr[j] == target) {
+            arr[i] = arr[i] + 1;
+          }
+        }
+      }
+      if (arr[i] === arr[i - 1]) {
+        arr[i] = arr[i] + 1;
+      }
+    }
+  }
+
+  console.log(arr);
+  return arr.reduce((a, b) => a + b, 0);
+};
+
+n = 2;
+target = 3;
+// nums = [1, 3];
+// 4;
+
+// n = 1;
+// target = 1;
+
+n = 3;
+target = 3;
+// nums = [1, 3, 4];
+
+n = 16;
+target = 6;
+
+// 162;
+console.log(minimumPossibleSum(n, target));
