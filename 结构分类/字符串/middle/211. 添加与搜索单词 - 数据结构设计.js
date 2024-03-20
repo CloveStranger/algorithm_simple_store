@@ -42,19 +42,8 @@ var WordDictionary = function () {
 WordDictionary.prototype.addWord = function (word) {
   if (!this.map.has(word)) {
     this.map.set(word, true);
-    for (let i = 0; i < word.length; i++) {
-      for (let len = 1; i + len <= word.length; len++) {
-        const newArr = word
-          .slice(i, i + len)
-          .split("")
-          .map((x) => ".");
-        this.map.set(
-          word.slice(0, i) + newArr.join("") + word.slice(i + len),
-          true
-        );
-      }
-    }
   }
+  console.log(this.map);
 };
 
 /**
@@ -67,7 +56,7 @@ WordDictionary.prototype.search = function (word) {
 const wordDictionary = new WordDictionary();
 wordDictionary.addWord("bad");
 wordDictionary.addWord("dad");
-wordDictionary.addWord("mad");
+wordDictionary.addWord("asnoanfoainfoianfoianaos");
 wordDictionary.search("pad"); // 返回 False
 wordDictionary.search("bad"); // 返回 True
 wordDictionary.search(".ad"); // 返回 True

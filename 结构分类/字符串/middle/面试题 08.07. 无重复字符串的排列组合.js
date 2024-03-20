@@ -20,9 +20,8 @@ var permutation = function (S) {
   const output = [];
   const charArr = S.split("");
 
-  const dp = (index, curArr) => {
-    curArr.push(charArr[index]);
-    if (index === charArr.length - 1) {
+  const dp = (curArr) => {
+    if (curArr.length === charArr.length) {
       output.push(curArr.join(""));
       return;
     }
@@ -30,12 +29,14 @@ var permutation = function (S) {
       if (curArr.includes(charArr[i])) {
         continue;
       }
-      dp(i, [...curArr]);
+      curArr.push(charArr[i]);
+      dp([...curArr]);
+      curArr.pop();
     }
   };
 
   for (let i = 0; i < charArr.length; i++) {
-    dp(i, []);
+    dp([]);
   }
 
   return output;
