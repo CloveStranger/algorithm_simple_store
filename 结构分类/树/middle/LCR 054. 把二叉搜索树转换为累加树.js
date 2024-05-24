@@ -43,16 +43,15 @@
  * @return {TreeNode}
  */
 var convertBST = function (root) {
-  const sum = (node) => {
-    if (node === null) return 0;
-    node.val += sum(node.right);
-    if (node.left !== null) {
-      node.left.val = sum(node.left) + node.val + root.val;
-      return node.left.val;
-    }
-    return node.val;
+  let sum = 0;
+  const convert = (root) => {
+    if (!root) return;
+    convert(root.right);
+    sum += root.val;
+    root.val = sum;
+    convert(root.left);
   };
-  sum(root);
+  convert(root);
   return root;
 };
 

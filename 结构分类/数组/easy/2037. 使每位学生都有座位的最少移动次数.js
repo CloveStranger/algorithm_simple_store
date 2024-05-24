@@ -61,7 +61,7 @@ var minMovesToSeat = function (seats, students) {
 seats = [3, 1, 5];
 students = [2, 7, 4];
 
-minMovesToSeat(seats, students);
+console.log(minMovesToSeat(seats, students));
 
 /*
 一个房间共有 nnn 个学生和 nnn 个座位，每个学生对应一个座位。将学生和座位的位置分别排序后，第 iii 个学生对应第 iii 个座位，即第 iii 个学生需要挪动的距离是 ∣studentsi−seatsi∣|\textit{students}_i - \textit{seats}_i|∣students 
