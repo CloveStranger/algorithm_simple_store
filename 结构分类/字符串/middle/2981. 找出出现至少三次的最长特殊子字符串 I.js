@@ -37,14 +37,12 @@ var maximumLength = function (s) {
   const map = new Map();
   for (let i = 0; i < s.length; i++) {
     for (let j = i; j < s.length; j++) {
+      if (s[j] !== s[i]) break;
       const str = s.slice(i, j + 1);
-      const strChar = [...new Set(str)];
-      if (strChar.length > 1) {
-        continue;
-      }
       map.set(str, (map.get(str) ?? 0) + 1);
     }
   }
+  console.log(map);
   let maxStr = "";
   for (const [k, v] of map.entries()) {
     if (v >= 3 && k.length > maxStr.length) {
@@ -54,7 +52,60 @@ var maximumLength = function (s) {
   return maxStr === "" ? -1 : maxStr.length;
 };
 
+var maximumLength = function (s) {
+  const n = s.length;
+  const groups = Array.from({ length: 26 }, () => []);
+  let cnt = 0;
+  for (let i = 0; i < n; i++) {
+    cnt++;
+    if (i + 1 === n || s[i] !== s[i + 1]) {
+      groups[s[i].charCodeAt(0) - "a".charCodeAt(0)].push(cnt); // 统计连续字符长度
+      cnt = 0;
+    }
+  }
+
+  let ans = 0;
+  for (let a of groups) {
+    if (a.length === 0) {
+      continue;
+    }
+    a.sort((x, y) => y - x);
+    a.push(0, 0); // 假设还有两个空串
+    ans = Math.max(ans, a[0] - 2, Math.min(a[0] - 1, a[1]), a[2]);
+  }
+
+  return ans ? ans : -1;
+};
+
+var maximumLength = function (s) {
+  const n = s.length;
+  const groups = Array.from({ length: 26 }, () => []);
+  let cnt = 0;
+  for (let i = 0; i < n; i++) {
+    cnt++;
+    if (i + 1 === n || s[i] !== s[i + 1]) {
+      groups[s[i].charCodeAt(0) - "a".charCodeAt(0)].push(cnt); // 统计连续字符长度
+      cnt = 0;
+    }
+  }
+
+  console.log(groups);
+
+  let ans = 0;
+  for (let a of groups) {
+    if (a.length === 0) {
+      continue;
+    }
+    a.sort((x, y) => y - x);
+    a.push(0, 0); // 假设还有两个空串
+    ans = Math.max(ans, a[0] - 2, Math.min(a[0] - 1, a[1]), a[2]);
+  }
+
+  return ans ? ans : -1;
+};
+
 s = "abcdef";
 s = "aaaa";
 s = "cccerrrecdcdccedecdcccddeeeddcdcddedccdceeedccecde";
+s = "abcaba";
 console.log(maximumLength(s));

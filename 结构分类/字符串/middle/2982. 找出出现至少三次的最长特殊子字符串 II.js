@@ -58,7 +58,36 @@ var maximumLength = function (s) {
   return max;
 };
 
-s = "abcdef";
-s = "abcaba";
+var maximumLength = function (s) {
+  const charArr = Array.from({ length: 26 }, () => []);
+  let ctl = 0;
+  for (let i = 0; i < s.length; i++) {
+    ctl++;
+    if (i === s.length - 1 || s[i] !== s[i + 1]) {
+      charArr[s.charCodeAt(i) - 97].push(ctl);
+      ctl = 0;
+    }
+  }
+
+  let max = 0;
+  for (let i = 0; i < charArr.length; i++) {
+    if (charArr[i].length == 0) {
+      continue;
+    }
+    charArr[i].sort((a, b) => b - a);
+    charArr[i].push(0, 0);
+    max = Math.max(
+      max,
+      charArr[i][0] - 2,
+      Math.min(charArr[i][0] - 1, charArr[i][1]),
+      charArr[i][2]
+    );
+  }
+
+  return max;
+};
+
+// s = "abcdef";
+// s = "abcaba";
 s = "ereerrrererrrererre";
 console.log(maximumLength(s));
