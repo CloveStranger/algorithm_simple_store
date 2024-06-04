@@ -35,17 +35,17 @@
 var findMatrix = function (nums) {
   const ans = [];
   nums.sort((a, b) => a - b);
-  for (let i = 0; i < nums.length; i++) {
-    const num = nums[i];
-    const temp = [num];
-    nums[i] = -1;
-    for (let j = i + 1; j < nums.length; j++) {
-      if (nums[j] !== nums[i] && nums[j] !== -1) {
-        temp.push(nums[j]);
-        nums[j] = -1;
+  let temp = [];
+  while (nums.length) {
+    for (let i = 0; i < nums.length; i++) {
+      if (i === nums.length - 1 || nums[i] !== nums[i + 1]) {
+        temp.push(nums[i]);
+        nums.splice(i, 1);
+        i--;
       }
     }
     ans.push(temp);
+    temp = [];
   }
 
   return ans;
