@@ -6,7 +6,7 @@
 
 // 示例 1：
 
-//110
+// 011 010 100 110
 // 输入：nums = [3,2,4,6]
 // 输出：7
 // 解释：选择 x = 4 和 i = 3 进行操作，num[3] = 6 AND (6 XOR 4) = 6 AND 2 = 2 。
@@ -15,6 +15,7 @@
 // 注意，其他操作可能也能得到逐位异或和 7 。
 // 示例 2：
 
+// 0001 0010 0011 1001 0010
 // 输入：nums = [1,2,3,9,2]
 // 输出：11
 // 解释：执行 0 次操作。
@@ -32,9 +33,17 @@
  * @return {number}
  */
 var maximumXOR = function (nums) {
-  console.log(3 ^ 2 ^ 4 ^ 2);
-  console.log(3 ^ 2 ^ 2 ^ 4);
+  let ans = 0;
+  for (const num of nums) {
+    ans |= num;
+  }
+  return ans;
 };
 nums = [3, 2, 4, 6];
 
+/// 1001
+/// 1000
+/// 0001
+/// 1001
+/// 0001
 console.log(maximumXOR(nums));
