@@ -48,35 +48,22 @@
  */
 var subsetXORSum = function (nums) {
   let output = 0;
-  if (nums.length === 0) {
-    return output;
-  }
 
-  for (let i = 1; i <= nums.length; i++) {
-    if (i === 1) {
-      for (let j = 0; j < nums.length; j++) {
-        output += nums[j];
-      }
-    } else if (i === nums.length) {
-      output += nums.reduce((pre, cur) => pre ^ cur);
-    } else {
-      for (let j = 0; j < nums.length; j++) {
-        for (let m = j + 1; m < nums.length; m++) {
-          const countArr = [nums[j]];
-          for (let n = 0; n < i - 1; n++) {
-            if (m + n < nums.length) {
-              countArr.push(nums[m + n]);
-            }
-          }
-          output += countArr.reduce((pre, cur) => pre ^ cur);
-        }
-      }
+  const backtrack = (index, current) => {
+    output += current.reduce((a, b) => a ^ b, 0);
+    for (let i = index; i < nums.length; i++) {
+      current.push(nums[i]);
+      backtrack(i + 1, current);
+      current.pop();
     }
-  }
+  };
+
+  backtrack(0, []);
 
   return output;
 };
 
+nums = [5, 1, 6];
 nums = [3, 4, 5, 6, 7, 8];
 
 console.log(subsetXORSum(nums));
