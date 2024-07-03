@@ -43,4 +43,6 @@ var sumOfTheDigitsOfHarshadNumber = function (x) {
 };
 
 x = 18;
+x = 23;
+
 console.log(sumOfTheDigitsOfHarshadNumber(x));
