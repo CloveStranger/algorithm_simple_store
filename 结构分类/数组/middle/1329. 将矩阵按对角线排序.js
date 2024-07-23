@@ -22,22 +22,43 @@
  * @return {number[][]}
  */
 var diagonalSort = function (mat) {
-  //   const n = mat.length;
-  //   const m = mat[0].length;
-  //   const diag = new Array(m + n).fill().map(() => []);
-  //   for (let i = 0; i < n; i++) {
-  //     for (let j = 0; j < m; j++) {
-  //       diag[i - j + m].push(mat[i][j]);
-  //     }
-  //   }
-  //   console.log(diag);
-  //   diag.forEach((d) => d.sort((a, b) => b - a));
-  //   for (let i = 0; i < n; i++) {
-  //     for (let j = 0; j < m; j++) {
-  //       mat[i][j] = diag[i - j + m].pop();
-  //     }
-  //   }
-  //   return mat;
+  const n = mat.length; //row
+  const m = mat[0].length; //col
+  const diag = new Array(m + n).fill().map(() => []);
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      diag[i - j + m].push(mat[i][j]);
+    }
+  }
+
+  diag.forEach((d) => d.sort((a, b) => b - a));
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      mat[i][j] = diag[i - j + m].pop();
+    }
+  }
+  return mat;
+};
+
+var diagonalSort = function (mat) {
+  const m = mat.length;
+  const n = mat[0].length;
+  for (let k = 1 - n; k < m; k++) {
+    // k = i - j
+    const left_i = Math.max(k, 0);
+    const right_i = Math.min(k + n, m);
+    const a = [];
+    for (let i = left_i; i < right_i; i++) {
+      a.push(mat[i][i - k]);
+    }
+    a.sort((a, b) => a - b);
+    for (let i = left_i; i < right_i; i++) {
+      mat[i][i - k] = a[i - left_i];
+    }
+  }
+  return mat;
 };
 
 mat = [

@@ -32,20 +32,6 @@
  * @param {TreeNode} tree
  * @return {ListNode[]}
  */
-var listOfDepth = function (tree) {
-  const res = [];
-  const bfs = (node) => {
-    const queue = [node];
-    let temp = new ListNode(node.val);
-    while (queue.length) {
-      const popNode = queue.shift();
-      if (popNode.left) queue.push(popNode.left);
-      if (popNode.right) queue.push(popNode.right);
-    }
-  };
-  bfs(tree);
-  return res;
-};
 
 function TreeNode(val) {
   this.val = val;
@@ -56,6 +42,34 @@ function ListNode(val) {
   this.val = val;
   this.next = null;
 }
+
+var listOfDepth = function (tree) {
+  const res = [];
+  const bfs = (node) => {
+    const queue = [node];
+    while (queue.length) {
+      let queueLen = queue.length;
+      let temp = null;
+      let pre = null;
+      while (queueLen) {
+        const popNode = queue.shift();
+        if (temp) {
+          pre.next = new ListNode(popNode.val);
+          pre = pre.next;
+        } else {
+          temp ??= new ListNode(popNode.val);
+          pre = temp;
+        }
+        queueLen--;
+        if (popNode.left) queue.push(popNode.left);
+        if (popNode.right) queue.push(popNode.right);
+      }
+      res.push(temp);
+    }
+  };
+  bfs(tree);
+  return res;
+};
 
 const root = new TreeNode(1);
 root.left = new TreeNode(2);
