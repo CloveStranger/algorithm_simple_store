@@ -36,5 +36,47 @@ function TreeNode(val, left, right) {
 }
 
 var allPossibleFBT = function (n) {
+  if (n % 2 === 0) return [];
+  const output = [];
   const root = new TreeNode(0);
+  let remainCounts = n;
+  const dfs = (node) => {
+    if (remainCounts === 1) {
+      output.push(root);
+      return;
+    }
+    const lNode = new TreeNode(0);
+    const rNode = new TreeNode(0);
+    node.left = lNode;
+    node.right = rNode;
+    remainCounts -= 2;
+    dfs(lNode);
+    dfs(rNode);
+  };
+  dfs(root, n);
+  return output;
 };
+
+var allPossibleFBT = function (n) {
+  let fullBinaryTrees = [];
+  if (n % 2 === 0) {
+    return fullBinaryTrees;
+  }
+  if (n === 1) {
+    fullBinaryTrees.push(new TreeNode(0));
+    return fullBinaryTrees;
+  }
+  for (let i = 1; i < n; i += 2) {
+    let leftSubtrees = allPossibleFBT(i);
+    let rightSubtrees = allPossibleFBT(n - 1 - i);
+    for (let leftSubtree of leftSubtrees) {
+      for (let rightSubtree of rightSubtrees) {
+        let root = new TreeNode(0, leftSubtree, rightSubtree);
+        fullBinaryTrees.push(root);
+      }
+    }
+  }
+  return fullBinaryTrees;
+};
+
+console.log(allPossibleFBT(7));

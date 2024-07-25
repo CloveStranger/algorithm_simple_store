@@ -27,4 +27,58 @@
  * @param {number[][]} grid
  * @return {number}
  */
-var matrixScore = function (grid) {};
+var matrixScore = function (grid) {
+  for (let i = 0; i < grid.length; i++) {
+    if (grid[i][0] === 0) {
+      for (let j = 0; j < grid[i].length; j++) {
+        grid[i][[j]] ^= 1;
+      }
+    }
+  }
+
+  for (let i = 1; i < grid[0].length; i++) {
+    let count = 0;
+    for (let j = 0; j < grid.length; j++) {
+      if (grid[j][i] === 1) {
+        count++;
+      }
+    }
+    if (count < grid.length - count) {
+      for (let j = 0; j < grid.length; j++) {
+        grid[j][i] ^= 1;
+      }
+    }
+  }
+  let sum = 0;
+  for (const item of grid) {
+    sum += parseInt(item.join(""), 2);
+  }
+  return sum;
+};
+
+var matrixScore = function (grid) {
+  const m = grid.length,
+    n = grid[0].length;
+  let ret = m * (1 << (n - 1));
+
+  for (let j = 1; j < n; j++) {
+    let nOnes = 0;
+    for (let i = 0; i < m; i++) {
+      if (grid[i][0] === 1) {
+        nOnes += grid[i][j];
+      } else {
+        nOnes += 1 - grid[i][j]; // 如果这一行进行了行反转，则该元素的实际取值为 1 - grid[i][j]
+      }
+    }
+    const k = Math.max(nOnes, m - nOnes);
+    ret += k * (1 << (n - j - 1));
+  }
+  return ret;
+};
+
+grid = [
+  [0, 0, 1, 1],
+  [1, 0, 1, 0],
+  [1, 1, 0, 0],
+];
+console.log(matrixScore(grid));
