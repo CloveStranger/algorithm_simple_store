@@ -1,3 +1,9 @@
 {
-  "C_Cpp.errorSquiggles": "disabled"
+  "C_Cpp.errorSquiggles": "disabled",
+  "files.associations": {
+    "*.page-template": "vue",
+    "*.layout-template": "vue",
+    "*.vue": "vue",
+    "iostream": "cpp"
+  }
 }
