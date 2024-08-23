@@ -13,7 +13,7 @@
 
 // 示例：
 
-// 输入：[17,13,11,2,3,5,7]
+// 输入：[17,13,11,2,3,5,7] [17,13,11,7]
 // 输出：[2,13,3,11,5,17,7]
 // 解释：
 // 我们得到的牌组顺序为 [17,13,11,2,3,5,7]（这个顺序不重要），然后将其重新排序。
@@ -34,12 +34,8 @@
 // 17 20
 // 20
 // 输入：[17,13,11,2,3,5,7,20,24]
-// 输出：[2,13,3,11,5,17,7,20,24]
-// 11 24 13 20 17
-// 13 20 17 24
-// 17 24 20
-// 20 24
-// 24
+// 输出：[2,20,3,13,5,24,7,17,11]
+// [11,20,13,24,17]
 
 // 提示：
 
@@ -51,4 +47,70 @@
  * @param {number[]} deck
  * @return {number[]}
  */
-var deckRevealedIncreasing = function (deck) {};
+// var deckRevealedIncreasing = function (deck) {
+//   const arr = Array.from({ length: deck.length }).fill(0);
+//   deck.sort((a, b) => a - b);
+//   if (deck.length <= 2) {
+//     return deck;
+//   }
+//   let lastIsBigger = deck.length % 2 === 0;
+//   const arr1 = deck.splice(0, Math.ceil(deck.length / 2));
+//   const arr2 = deck.splice(
+//     0,
+//     lastIsBigger ? Math.ceil(deck.length / 2) : Math.floor(deck.length / 2)
+//   );
+//   const arr3 = deck;
+//   console.log(arr2, arr3);
+//   for (let i = 0; i < arr.length; i++) {
+//     if (i % 2 === 0) {
+//       arr[i] = arr1[i / 2];
+//       if (i < arr.length - 1) {
+//         if (!lastIsBigger) {
+//           arr[i + 1] = arr3.shift();
+//         } else {
+//           arr[i + 1] = arr2.shift();
+//         }
+//         lastIsBigger = !lastIsBigger;
+//       }
+//     }
+//   }
+//   return arr;
+// };
+
+/**
+ * @param {number[]} deck
+ * @return {number[]}
+ */
+var deckRevealedIncreasing = function (deck) {
+  const len = deck.length;
+  const arr = [];
+
+  for (let i = 0; i < len; i++) {
+    arr.push(i);
+  }
+
+  const ans = Array.from(arr);
+
+  deck.sort((a, b) => a - b);
+
+  for (let i = 0; i < deck.length; i++) {
+    ans[arr.shift()] = deck[i];
+    if (arr.length) {
+      arr.push(arr.shift());
+    }
+  }
+
+  return ans;
+};
+
+deck = [17, 13, 11, 2, 3, 5, 7];
+deck = [17, 13, 11, 2, 3, 5, 7, 20, 24];
+deck = [17, 13, 11, 2, 3, 5, 7, 15];
+deck = [17, 13, 11, 2, 3, 5, 7];
+// deck = [1, 2, 3, 4, 5, 6];
+///[1,4,2,6,3,5]
+/// 2 6 3 5 4
+/// 3 5 4 6
+/// 4 6 5
+
+console.log(deckRevealedIncreasing(deck));
