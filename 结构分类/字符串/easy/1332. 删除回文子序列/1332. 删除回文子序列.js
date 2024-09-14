@@ -28,3 +28,9 @@
 
 // 1 <= s.length <= 1000
 // s 仅包含字母 'a'  和 'b'
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var removePalindromeSub = function (s) {};
