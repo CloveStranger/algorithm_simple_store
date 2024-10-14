@@ -5,5 +5,54 @@
     "*.layout-template": "vue",
     "*.vue": "vue",
     "iostream": "cpp"
-  }
+  },
+  "editor.formatOnSave": true, // 保存时自动格式化代码
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "eslint.format.enable": true, // 启用 ESLint 作为格式化工具
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint", // 默认使用 prettier-eslint 格式化
+  "editor.formatOnType": false, // 禁用输入时格式化
+  "editor.formatOnPaste": true, // 启用粘贴时格式化
+  "editor.formatOnSaveMode": "file", // 保存整个文件时格式化
+  "files.autoSave": "onFocusChange", // 焦点变更时自动保存文件
+  "vs-code-prettier-eslint.prettierLast": false, // 优先执行 ESLint 修复，然后运行 Prettier 格式化
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue",
+    "typescript",
+    "typescriptreact"
+  ], // 让 ESLint 验证这些语言文件
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"] // 指定 ESLint 的检测文件类型
+  },
+  "prettier.requireConfig": true, // 只有存在 prettier 配置时才启用 prettier 格式化
+  "editor.tabSize": 2, // 设置 tab 宽度为 2 空格
+  "editor.insertSpaces": true, // 使用空格而不是 tab
+  "editor.detectIndentation": false, // 禁用自动检测缩进
+  "editor.rulers": [80, 120], // 设置 80 和 120 字符宽度的垂直参考线
+  "files.trimTrailingWhitespace": true, // 自动去除行末的空白字符
+  "files.insertFinalNewline": true, // 文件末尾插入新行
+  "files.trimFinalNewlines": true, // 删除多余的末尾换行
+  "javascript.updateImportsOnFileMove.enabled": "always", // 文件移动时更新相关导入
+  "typescript.updateImportsOnFileMove.enabled": "always", // 同样为 TypeScript 文件启用导入更新
+  "editor.minimap.enabled": false, // 禁用编辑器右侧的小地图，减少视觉干扰
+  "breadcrumbs.enabled": true, // 启用文件路径导航
+  "terminal.integrated.fontSize": 14, // 终端字体大小
+  "workbench.colorTheme": "Visual Studio Dark", // 主题为暗色
+  "workbench.iconTheme": "material-icon-theme", // 启用 Material 图标主题
+  "explorer.confirmDelete": false, // 删除文件时不弹出确认框
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/out": true
+  }, // 排除不必要的文件夹（如 node_modules 和构建文件夹）避免搜索过慢
+  "git.autofetch": true, // 自动从远程仓库拉取代码
+  "editor.suggestSelection": "first", // 自动补全建议时选择第一个
+  "typescript.preferences.importModuleSpecifier": "relative", // 使用相对路径导入模块
+  "javascript.preferences.importModuleSpecifier": "relative"
 }
