@@ -37,4 +37,55 @@
  * @param {number} n
  * @return {number}
  */
-var reinitializePermutation = function (n) {};
+
+var reinitializePermutation = function (n) {
+  let perm = new Array(n).fill(0).map((_, index) => index);
+  const arr = [...perm];
+  let output = 0;
+  for (let i = 0; i < perm.length; i++) {
+    let curNum;
+    curNum = i % 2 === 0 ? perm[i / 2] : perm[n / 2 + (i - 1) / 2];
+    arr[i] = curNum;
+  }
+  perm = arr;
+  console.log(perm);
+  return output;
+};
+var reinitializePermutation = function (n) {
+  let perm = new Array(n).fill(0).map((_, i) => i);
+  const target = new Array(n).fill(0).map((_, i) => i);
+  let step = 0;
+  while (true) {
+    const arr = new Array(n).fill(0);
+    for (let i = 0; i < n; i++) {
+      if ((i & 1) !== 0) {
+        arr[i] = perm[Math.floor(n / 2) + Math.floor((i - 1) / 2)];
+      } else {
+        arr[i] = perm[Math.floor(i / 2)];
+      }
+    }
+    perm = arr;
+    step++;
+    if (perm.toString() === target.toString()) {
+      break;
+    }
+  }
+  return step;
+};
+
+var reinitializePermutation = function (n) {
+  if (n === 2) {
+    return 1;
+  }
+  let step = 1,
+    pow2 = 2;
+  while (pow2 !== 1) {
+    step++;
+    pow2 = (pow2 * 2) % (n - 1);
+  }
+  return step;
+};
+
+n = 4;
+// n = 6;
+console.log(reinitializePermutation(n));
