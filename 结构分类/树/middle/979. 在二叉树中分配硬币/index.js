@@ -35,14 +35,34 @@
  * @return {number}
  */
 var distributeCoins = function (root) {
+  let output = 0;
+
   const dfs = (node) => {
     if (!node) return 0;
     const lCount = dfs(node.left);
     const rCount = dfs(node.right);
-    return node.val + lCount + rCount;
+    output = output + lCount + rCount;
+    return lCount + rCount - 1;
   };
 
-  return dfs(root);
+  return output;
+};
+
+var distributeCoins = function (root) {
+  let output = 0;
+
+  const dfs = (node) => {
+    if (!node) return 0;
+    const lCount = dfs(node.left);
+    const rCount = dfs(node.right);
+    const d = lCount + rCount + node.val - 1;
+    output = output + Math.abs(d);
+    return d;
+  };
+
+  dfs(root);
+
+  return output;
 };
 
 function TreeNode(val, left, right) {
