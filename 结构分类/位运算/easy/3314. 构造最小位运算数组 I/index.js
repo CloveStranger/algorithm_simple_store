@@ -21,6 +21,14 @@
 // 对于 i = 1 ，满足 ans[1] OR (ans[1] + 1) = 3 的最小 ans[1] 为 1 ，因为 1 OR (1 + 1) = 3 。
 // 对于 i = 2 ，满足 ans[2] OR (ans[2] + 1) = 5 的最小 ans[2] 为 4 ，因为 4 OR (4 + 1) = 5 。
 // 对于 i = 3 ，满足 ans[3] OR (ans[3] + 1) = 7 的最小 ans[3] 为 3 ，因为 3 OR (3 + 1) = 7 。
+
+// 10 1 1
+// 11 01 01 1
+// 101 100
+// 011 | (011 + 001) = 111
+
+// x|(x+1) = y
+
 // 示例 2：
 
 // 输入：nums = [11,13,31]
@@ -43,4 +51,18 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var minBitwiseArray = function (nums) {};
+var minBitwiseArray = function (nums) {
+  const output = [];
+  for (const item of nums) {
+    console.log(item);
+    if (item === 2) {
+      output.push(-1);
+    } else {
+      const t = ~item;
+    }
+  }
+};
+
+nums = [2, 3, 5, 7];
+
+console.log(minBitwiseArray(nums));
