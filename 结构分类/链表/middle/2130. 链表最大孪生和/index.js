@@ -60,6 +60,31 @@ var pairSum = function (head) {
   }
   return maxSum;
 };
+var pairSum = function (head) {
+  let slow = head;
+  let fast = head;
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  let pre = null;
+  let cur = slow;
+  while (cur) {
+    const next = cur.next;
+    cur.next = pre;
+    pre = cur;
+    cur = next;
+  }
+
+  let maxSum = 0;
+  let node = head;
+  while (node && pre) {
+    maxSum = Math.max(node.val + pre.val, maxSum);
+    node = node.next;
+    pre = pre.next;
+  }
+  return maxSum;
+};
 
 function ListNode(val, next) {
   this.val = val === undefined ? 0 : val;
