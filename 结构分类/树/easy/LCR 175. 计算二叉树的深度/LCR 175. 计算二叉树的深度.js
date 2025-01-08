@@ -37,6 +37,11 @@ var calculateDepth = function (root) {
   return output;
 };
 
+var calculateDepth = function (root) {
+  if (root === null) return 0;
+  return Math.max(calculateDepth(root.left), calculateDepth(root.right)) + 1;
+};
+
 function TreeNode(val, left, right) {
   this.val = val === undefined ? 0 : val;
   this.left = left === undefined ? null : left;
