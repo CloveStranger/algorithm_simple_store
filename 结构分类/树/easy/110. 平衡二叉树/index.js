@@ -33,14 +33,14 @@
  */
 var isBalanced = function (root) {
   const dfs = (node) => {
-    if (!root) {
-      return 0;
-    }
-    const left = isBalanced(root.left);
-    const right = isBalanced(root.right);
-    console.log(left, right);
+    if (!node) return 0;
+    const left = dfs(node.left);
+    if (left === -1) return -1;
+    const right = dfs(node.right);
+    if (right === -1 || Math.abs(left - right) > 1) return -1;
     return Math.max(left, right) + 1;
   };
+  return dfs(root) !== -1;
 };
 
 function TreeNode(val, left, right) {
