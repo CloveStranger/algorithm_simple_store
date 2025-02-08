@@ -39,3 +39,39 @@ var subsets = function (nums) {
 
   return output;
 };
+
+var subsets = function (nums) {
+  const output = [];
+
+  const dfs = (index, path) => {
+    output.push(path);
+    for (let i = index; i < nums.length; i++) {
+      dfs(i + 1, [...path, nums[i]]);
+    }
+  };
+
+  dfs(0, []);
+
+  return output;
+};
+
+var subsets = function (nums) {
+  const output = [];
+  const path = [];
+
+  const dfs = (index) => {
+    output.push(path.slice());
+    for (let i = index; i < nums.length; i++) {
+      path.push(nums[i]);
+      dfs(i + 1);
+      path.pop();
+    }
+  };
+
+  dfs(0);
+
+  return output;
+};
+
+nums = [1, 2, 3];
+console.log(subsets(nums));
