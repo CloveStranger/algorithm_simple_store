@@ -41,7 +41,7 @@
   "editor.minimap.enabled": false, // 禁用编辑器右侧的小地图，减少视觉干扰
   "breadcrumbs.enabled": true, // 启用文件路径导航
   "terminal.integrated.fontSize": 14, // 终端字体大小
-  "workbench.colorTheme": "Visual Studio Dark", // 主题为暗色
+  "workbench.colorTheme": "Default Dark Modern", // 主题为暗色
   "workbench.iconTheme": "material-icon-theme", // 启用 Material 图标主题
   "explorer.confirmDelete": false, // 删除文件时不弹出确认框
   "search.exclude": {
